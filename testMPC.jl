@@ -24,7 +24,7 @@ m = Model(solver = IpoptSolver(print_level=0, max_cpu_time=1.0))
 @variable(m, u[1:N, 1:2]  )
 
 #for soft constraint
-@variable(m, z[1:N+1]  )
+#@variable(m, z[1:N+1]  )
 
 
 @NLparameter(m, x0[j=1:3] == zInit[j] )
@@ -141,28 +141,29 @@ for i = 1:i_final
     subplot(511)
     plot(tCurr[1:i_final], xCurr[1:i_final,1])
     plot(tCurr[i:i+N], x_log[:,1,i] ,marker="o")
+    ax3 = gca()
     xlabel("t in [s]")
     ylabel("x in [m]")
 
-    subplot(512)
+    subplot(512, sharex=ax3)
     plot(tCurr[1:i_final], xCurr[1:i_final,2])
     plot(tCurr[i:i+N], x_log[:,2,i] ,marker="o")
     xlabel("t in [s]")
     ylabel("y in [m]")
 
-    subplot(513)
+    subplot(513, sharex=ax3)
     plot(tCurr[1:i_final], xCurr[1:i_final,3])
     plot(tCurr[i:i+N], x_log[:,3,i] ,marker="o")
     xlabel("t in [s]")
     ylabel("v in [m/s]")
 
-    subplot(514)
+    subplot(514, sharex=ax3)
     plot(tCurr[1:i_final], uCurr[1:i_final,1])
     plot(tCurr[i:i+N-1], u_log[:,1,i] ,marker="o", color ="red")
     xlabel("t in [s]")
     ylabel("a in [m/s^2]")
 
-    subplot(515)
+    subplot(515, sharex=ax3)
     plot(tCurr[1:i_final], uCurr[1:i_final,2])
     plot(tCurr[i:i+N-1], u_log[:,2,i] ,marker="o", color ="red")
     xlabel("t in [s]")
